@@ -1,0 +1,18 @@
+{
+  "trade": "foid",
+  "trades": "foid",
+  "foid": "foid",
+  "today": "trade_date",
+  "yesterday": "trade_date",
+  "trade_date": "trade_date",
+  "counterparty": "client",
+  "client": "client",
+  "ctpy": "client",
+  "trader": "trader",
+  "price" : "price,",
+  "quantity" : "quantity",
+  "status" : "match_status",
+  "reason" : "mismatch_reason",
+  "mismatched" : "mismatched",
+  "unmatched" : "mismatched"
+}

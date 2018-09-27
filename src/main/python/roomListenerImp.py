@@ -2,6 +2,10 @@ from sym_api_client_python.listeners.RoomListener import RoomListener
 import calendar;
 import time;
 import logging
+import messageParse
+from nlp import nlpMain
+import requests
+import callDB
 
 #sample implementation of Abstract RoomListener class
 #has instance of SymBotClient so that it can respond to events coming in by leveraging other clients on SymBotClient
@@ -15,8 +19,15 @@ class RoomListenerTestImp(RoomListener):
         logging.debug('room message recieved', message)
         #sample code for developer to implement --> use MessageClient and
         #data recieved from message event to reply with a #reed
+        m = messageParse.messageParse(message)
+        content = m.getContent()
         streamId = message['stream']['streamId']
-        message = dict(message = '<messageML><hash tag="NatalieIsAwesome"/></messageML>')
+        print(content)
+        nlp = nlpMain.NLPMain(content)
+        nlpobj = nlp.extractMeaning()
+        callobj = callDB.callDB(nlpobj)
+        finalRes = callobj.call()
+        message = dict(message = '<messageML>'+finalRes+'</messageML>')
         self.botClient.getMessageClient().sendMessage(streamId, message)
 
     def onRoomCreated(self, roomCreated):
